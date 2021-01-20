@@ -1,0 +1,215 @@
+{% extends 'registro/index.html' %}
+{% block titulocontenedor %}Editar Cliente{% endblock %}
+{% block barraactiva %}
+<li class="nav-item menu-open">
+    <a href="#" class="nav-link active">
+      <i class="nav-icon fas fa-address-book"></i>
+      <p>
+        Clientes
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{% url 'agregar-cliente' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Agregar Cliente</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'lista-clientes' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Ver Clientes</p>
+        </a>
+      </li>
+    </ul>
+</li>
+<li class="nav-item">
+    <a href="#" class="nav-link ">
+      <i class="nav-icon fas fa-book"></i>
+      <p>
+        Visitas
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{% url 'lista-visitas' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>    
+          <p>Ver Visitas</p>
+        </a>
+      </li>
+    </ul>
+</li>
+{% endblock %}
+{% block pagactual %}editar cliente{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6" style="margin: 0 auto;">
+        <div class="card card-outline card-primary">
+            <div class="card-body">
+                <h3 class="text-center">Ingrese los nuevos datos del Cliente</h3>
+                    <span style="text-align: center; display: block; margin: 0 auto; color: #ff0000; font-size: small">* campos obligatorios</span>
+                    <hr style="height:1px;border:none;background-color:#282828;">
+                    <form method="post" action="{% url 'actualizar-cliente' id %}">
+                        {% csrf_token %}
+                        Número de documento
+                        <div class="input-group mb-1">                            
+                            <input type="number" class="form-control" placeholder="N° de documento" id="document" name="document" value="{{ document }}">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-id-card"></span>
+                                </div>
+                            </div>
+                        </div>
+                        Nombre(s) <span
+                                    style="color: red; font-size: small">*</span>
+                        <div class="input-group mb-1">
+                            <input type="text" class="form-control" placeholder="Nombre(s)" id="first_name" name="first_name" value="{{ first_name }}" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        Apellidos <span
+                                    style="color: red; font-size: small">*</span>
+                        <div class="input-group mb-1">
+                            <input type="text" class="form-control" placeholder="Apellidos" id="last_name" name="last_name" value="{{ last_name }}" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        Género <span
+                        style="color: red; font-size: small">*</span>
+                        {% if 'M' in genre %}
+                            <div class="input-group mb-1">
+                                <select id="inputStatus" class="form-control custom-select" style="color: #495057;" id="genre" name="genre" required> 
+                                    <option selected disabled value="">Seleccione un género</option>
+                                    <option> femenino</option>
+                                    <option selected> masculino</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-venus-mars"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="input-group mb-1">
+                                <select id="inputStatus" class="form-control custom-select" style="color: #495057;" id="genre" name="genre" required> 
+                                    <option selected disabled value="">Seleccione un género</option>
+                                    <option selected> femenino</option>
+                                    <option>masculino</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-venus-mars"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        Edad <span
+                        style="color: red; font-size: small">*</span>
+                        {% if 'menor' in age %}
+                            <div class="input-group mb-1">
+                                <select required id="inputStatus" class="form-control custom-select form-select" id="age" name="age"> 
+                                    <option selected disabled value="">Seleccione un rango de edad</option>
+                                    <option selected >menor de 18 años</option>
+                                    <option>entre 19 y 50 años</option>
+                                    <option>mayor de 51 años</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-child"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% elif 'mayor' in age %}
+                            <div class="input-group mb-1">
+                                <select required id="inputStatus" class="form-control custom-select form-select" id="age" name="age"> 
+                                    <option selected disabled value="">Seleccione un rango de edad</option>
+                                    <option>menor de 18 años</option>
+                                    <option>entre 19 y 50 años</option>
+                                    <option selected>mayor de 51 años</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-child"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="input-group mb-1">
+                                <select required id="inputStatus" class="form-control custom-select form-select" id="age" name="age"> 
+                                    <option selected disabled value="">Seleccione un rango de edad</option>
+                                    <option>menor de 18 años</option>
+                                    <option selected >entre 19 y 50 años</option>
+                                    <option>mayor de 51 años</option>
+                                </select>
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <span class="fas fa-child"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                        Número de celular <span
+                        style="color: red; font-size: small">*</span>
+                        <div class="input-group mb-1">
+                            <input type="number" class="form-control" placeholder="N° celular" id="phone_num" name="phone_num" value="{{ phone_num }}" required>
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span class="fas fa-mobile-alt"></span>
+                                </div>
+                            </div>
+                        </div>
+                        Número de whatsapp
+                        <div class="input-group mb-1">
+                            <input type="number" class="form-control" placeholder="N° whatsapp" id="phone_num_wa" name="phone_num_wa" value="{{ phone_num_wa }}">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span class="fab fa-whatsapp" ></span>
+                                </div>
+                            </div>
+                        </div>
+                        Dirección de correo electrónico
+                        <div class="input-group mb-1">
+                            <input type="email" class="form-control" placeholder="Email" id="email_address" name="email_address" value="{{ email_address }}">
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                            </div>
+                        </div>
+                        Dirección residencial
+                        <div class="input-group mb-1">
+                            <input type="text" class="form-control" placeholder="Dirección casa" id="home_address" name="home_address" value="{{ home_address }}">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span class="fas fa-house-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        Dirección de oficina
+                        <div class="input-group mb-1">
+                            <input type="text" class="form-control" placeholder="Dirección oficina" id="office_address" name="office_address" value="{{ office_address }}">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                <span class="fas fa-briefcase"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="height:1px;border:none;background-color:#282828;">
+                        <button type="submit" class="btn btn-primary"
+                                style="margin: 0 auto; display: block; font-size: 20px;width: 200px; height: 50%">
+                            Actualizar
+                        </button>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>    
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'registro/index.html' %}
+{% block titulocontenedor %}404 error{% endblock %}
+{% block barraactiva %}
+<li class="nav-item menu-open">
+    <a href="#" class="nav-link ">
+      <i class="nav-icon fas fa-address-book"></i>
+      <p>
+        Clientes
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{% url 'agregar-cliente' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Agregar Cliente</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'lista-clientes' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Ver Clientes</p>
+        </a>
+      </li>
+    </ul>
+</li>
+<li class="nav-item">
+    <a href="#" class="nav-link ">
+      <i class="nav-icon fas fa-book"></i>
+      <p>
+        Visitas
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="#" class="nav-link">
+          <i class="far fa-circle nav-icon"></i>
+          <p>Ver Visitas</p>
+        </a>
+      </li>
+    </ul>
+</li>
+{% endblock %}
+{% block pagactual %}{% endblock %}
+{% block content %}
+<div class="error-page">
+  <h2 class="headline text-warning"> 404</h2>
+
+  <div class="error-content">
+    <h3><i class="fas fa-exclamation-triangle text-warning"></i> ¡Oops! Página no encontrada.</h3>
+    <p>
+      No se pudo encontrar la página que buscabas :c 
+      Mientras tanto, puedes <a href="{% url 'index' %}">regresar al inicio</a> o intentar utilizar el formulario de búsqueda.
+    </p>
+    <form class="search-form">
+      <div class="input-group">
+        <input type="text" name="search" class="form-control" placeholder="Search">
+        <div class="input-group-append">
+          <button type="submit" name="submit" class="btn btn-warning"><i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

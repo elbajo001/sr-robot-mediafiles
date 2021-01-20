@@ -1,0 +1,134 @@
+{% extends 'registro/index.html' %}
+{% block titulocontenedor %}Editar Visita{% endblock %}
+{% block barraactiva %}
+<li class="nav-item">
+    <a href="#" class="nav-link">
+      <i class="nav-icon fas fa-address-book"></i>
+      <p>
+        Clientes
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{% url 'agregar-cliente' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Agregar Cliente</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'lista-clientes' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Ver Clientes</p>
+        </a>
+      </li>
+    </ul>
+</li>
+<li class="nav-item menu-open">
+    <a href="#" class="nav-link active">
+      <i class="nav-icon fas fa-book"></i>
+      <p>
+        Visitas
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{% url 'lista-visitas' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>    
+          <p>Ver Visitas</p>
+        </a>
+      </li>
+    </ul>
+</li>
+{% endblock %}
+{% block pagactual %}editar visita{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6" style="margin: 0 auto;">
+        <div class="card card-outline card-primary">
+            <div class="card-body">
+                <h3 class="text-center">Ingrese los nuevos datos de la Visita</h3>
+                    <span style="text-align: center; display: block; margin: 0 auto; color: #ff0000; font-size: small">* campos obligatorios</span>
+                    <hr style="height:1px;border:none;background-color:#282828;">
+                    <form method="post" action="{% url 'actualizar-visita' customer.id visit.id %}" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% if msg_error %}
+                          <div class="alert alert-warning alert-dismissible">
+                            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                            <h5><i class="icon fas fa-exclamation-triangle"></i> ¡Alerta!</h5>
+                            {{ msg_error }}
+                          </div>
+                        {% endif %}
+                        Cliente
+                        <div class="input-group mb-1">
+                        <input type="text" class="form-control" placeholder="{{ customer.first_name }} {{ customer.last_name}}" disabled>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                            <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                        </div>
+                        Descripción <span style="color: red; font-size: small">*</span>
+                        <div class="input-group mb-1">
+                            <textarea class="form-control" rows="3" id="description" name="description" required>{{ visit.description }}</textarea>
+                        </div>
+                        Archivos adjuntos
+                        <div class="input-group mb-1">
+                          <div class="input-group">
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="myfile" name="myfile" value="{{ visit.media }}">
+                              <label class="custom-file-label" for="myfile">Audio, video o imágenes</label>
+                            </div>
+                            <div class="input-group-append">
+                              <div class="input-group-text">
+                                <span class="far fa-folder-open"></span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        Hora de inicio <span
+                        style="color: red; font-size: small">*</span>
+                        <div class="input-group date" id="hour_start" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#hour_start" id="hour_start" name="hour_start" value="{{ visit.hour_start }}" required/>
+                        <div class="input-group-append" data-target="#hour_start" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                        </div>
+                        </div>
+                        Hora de finalización <span
+                        style="color: red; font-size: small">*</span>
+                        <div class="input-group date" id="hour_end" data-target-input="nearest">
+                        <input type="text" class="form-control datetimepicker-input" data-target="#hour_end" id="hour_end" name="hour_end" value="{{ visit.hour_end }}" required/>
+                        <div class="input-group-append" data-target="#hour_end" data-toggle="datetimepicker">
+                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                        </div>
+                        </div>
+                        Ubicación
+                        <div class="input-group mb-1">
+                            <input type="text" class="form-control" placeholder="Ubicación de encuentro" id="visit_location" name="visit_location" value="{{ visit.visit_location }}">
+                            <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-map-marker-alt"></span>
+                            </div>
+                            </div>
+                        </div>
+                        Valor asesoría
+                        <div class="input-group mb-1">
+                        <input type="number" class="form-control" placeholder="0 por defecto" id="value" name="value" min="0" value="{{ value }}">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-dollar-sign"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="height:1px;border:none;background-color:#282828;">
+                        <button type="submit" class="btn btn-primary"
+                                style="margin: 0 auto; display: block; font-size: 20px;width: 200px; height: 50%">
+                            Actualizar
+                        </button>
+                    </form>
+            </div>
+        </div>
+    </div>
+</div>    
+{% endblock %}

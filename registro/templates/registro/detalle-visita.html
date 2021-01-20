@@ -1,0 +1,158 @@
+{% extends 'registro/index.html' %}
+{% block titulocontenedor %}Información de las Visitas{% endblock %}
+{% block barraactiva %}
+<li class="nav-item ">
+    <a href="#" class="nav-link">
+      <i class="nav-icon fas fa-address-book"></i>
+      <p>
+        Clientes
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{% url 'agregar-cliente' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Agregar Cliente</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'lista-clientes' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Ver Clientes</p>
+        </a>
+      </li>
+    </ul>
+</li>
+<li class="nav-item menu-open">
+    <a href="#" class="nav-link active">
+      <i class="nav-icon fas fa-book"></i>
+      <p>
+        Visitas
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{% url 'lista-visitas' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Ver Visitas</p>
+        </a>
+      </li>
+    </ul>
+</li>
+{% endblock %}
+{% block pagactual %}información de las visitas{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-md-6" style="margin: 0 auto;">
+        <div class="card card-outline card-primary">
+            <div class="card-body">
+                <h3 style="text-align: center" class="text-center">
+                <svg style="margin: 0 0px 5px 5px;" width="0.8em" height="0.8em" viewBox="0 0 16 16"
+                  class="bi bi-journal-text" fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg">
+                 <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                 <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                 <path fill-rule="evenodd"
+                       d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+                Datos de la Visita
+                </h3>
+                <hr style="height:1px;border:none;background-color:#282828;">
+                <p class="card-text" style="margin-bottom: 0px">
+                    <b>Cliente:</b> {{ customer.first_name }} {{ customer.last_name }}</p>
+                <p class="card-text" style="margin-bottom: 0px"><b>Descripción:</b> {{ visit.description }}</p>
+                <p class="card-text" style="margin-bottom: 0px"><b>Hora de inicio:</b> {{ visit.hour_start }}</p>
+                <p class="card-text" style="margin-bottom: 0px"><b>Hora de finalización:</b> {{ visit.hour_end }}</p>
+                <p class="card-text" style="margin-bottom: 0px"><b>Ubicación:</b> {{ visit.visit_location }}</p>
+                <p class="card-text" style="margin-bottom: 0px"><b>Valor asesoría:</b> {{ visit.value }}
+                </p>
+                <hr>
+                <p class="card-text" style="margin-bottom: 0px"><b>Fecha de creación:</b> {{ visit.created_at }}</p>
+                <p class="card-text" style="margin-bottom: 0px"><b>Última
+                    actualización:</b> {{ visit.updated_at }}</p>
+                <hr style="height:1px;border:none;background-color:#282828;">
+                <div style="margin: 0 auto; display: flex; justify-content: space-between;">
+                    <a style="margin: 0 10%; width: 30%" href="{% url 'editar-visita' customer.id visit.id %}" class="btn btn-warning">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-pencil-fill"
+                             fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+                        </svg>
+                    </a>
+                    <a style="margin: 0 10%; width: 30%" href="{% url 'eliminar-visita' customer.id visit.id %}"
+                       class="btn btn-danger" data-toggle="modal" data-target="#modal-danger">
+                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash-fill"
+                             fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5a.5.5 0 0 0-1 0v7a.5.5 0 0 0 1 0v-7z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+            <div class="modal fade" id="modal-danger">
+              <div class="modal-dialog">
+                <div class="modal-content bg-danger">
+                  <div class="modal-header">
+                    <h4 class="modal-title">Dialogo de confirmación</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h6></h6>¿Estás seguro que deseas eliminar esta visita?</h4>
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-outline-light" data-dismiss="modal">Cancelar</button>
+                    <a type="button" class="btn btn-outline-light" href="{% url 'eliminar-visita' customer.id visit.id %}">Eliminar</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4" style="margin: 0 auto;">
+      <div class="card card-outline card-primary">
+        <div class="card-body">
+          <h3 class="text-center">
+            <svg style="margin: 0 0px 5px 5px;" width="0.8em" height="0.8em" viewBox="0 0 16 16"
+                 class="bi bi-journal-text" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 0h10a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-1h1v1a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v1H1V2a2 2 0 0 1 2-2z"/>
+                <path d="M1 5v-.5a.5.5 0 0 1 1 0V5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0V8h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1zm0 3v-.5a.5.5 0 0 1 1 0v.5h.5a.5.5 0 0 1 0 1h-2a.5.5 0 0 1 0-1H1z"/>
+                <path fill-rule="evenodd"
+                      d="M5 10.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            Archivos adjuntos
+        </h3>
+        <hr style="height:1px;border:none;background-color:#282828;">
+        {% if visit.media %}
+          {% if extension == 'audio' %}
+          Audio:
+          <div style="margin: 0 auto;display: block;">
+            <audio style="width: 100%;" controls>
+              <source src="{{ visit.media }}" type="audio/mpeg">
+            </audio>
+          </div>
+          {% elif extension == 'imagen' %}                
+            Imagen:
+              <img style="width: 100%;height: auto;" src="{{ visit.media }}" alt="" width="256px">
+          {% elif extension == 'video' %}                
+            Video:
+            <div class="embed-responsive embed-responsive-16by9">
+              <video width="320" height="240" controls>
+                <source src="{{ visit.media }}" type="video/mp4">
+              </video>
+            </div>
+          {% else %}      
+            No se reconoce el tipo de archivo. Por favor asegurate de que el tipo de archivo sea imagen, audio, o video.
+          {% endif %}      
+        {% else %}
+          No hay archivos adjuntos para mostrar
+        {% endif %}
+        </div>
+      </div>
+    </div>
+</div>    
+{% endblock %}

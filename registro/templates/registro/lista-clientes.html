@@ -1,0 +1,83 @@
+{% extends 'registro/index.html' %}
+{% block titulocontenedor %}Listado de los Clientes{% endblock %}
+{% block barraactiva %}
+<li class="nav-item menu-open">
+    <a href="#" class="nav-link active">
+      <i class="nav-icon fas fa-address-book"></i>
+      <p>
+        Clientes
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{% url 'agregar-cliente' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Agregar Cliente</p>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'lista-clientes' %}" class="nav-link active">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Ver Clientes</p>
+        </a>
+      </li>
+    </ul>
+</li>
+<li class="nav-item">
+    <a href="#" class="nav-link ">
+      <i class="nav-icon fas fa-book"></i>
+      <p>
+        Visitas
+        <i class="fas fa-angle-left right"></i>
+      </p>
+    </a>
+    <ul class="nav nav-treeview">
+      <li class="nav-item">
+        <a href="{% url 'lista-visitas' %}" class="nav-link">
+          <i class="far fa-check-circle nav-icon"></i>
+          <p>Ver Visitas</p>
+        </a>
+      </li>
+    </ul>
+</li>
+{% endblock %}
+{% block pagactual %}listar clientes{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title">Lista de Clientes</h3>
+        </div>
+        <div class="card-body">          
+          <table
+            id="example1"
+            class="table table-bordered table-striped"
+          >
+            <thead>
+              <tr>
+                <th>N° Documento</th>
+                <th>Nombre</th>
+                <th>Celular</th>
+                <th>Dirección</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+              <tbody>
+                {% for customer in customers %}
+                <tr>
+                  <td>{{ customer.document }}</td>
+                  <td><a href="{% url 'detalle-cliente' customer.id %}">{{ customer.first_name }} {{ customer.last_name }}</a></td>
+                  <td>{{ customer.phone_num }}</td>
+                  <td>{{ customer.home_address }}</td>
+                  <td><b><a href="{% url 'detalle-cliente' customer.id %}">Ver más</a></b></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
